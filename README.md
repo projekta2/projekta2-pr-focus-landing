@@ -1,1 +1,1 @@
-# rojekta2-pr-focus-landing
+# projekta2-pr-focus-landing
