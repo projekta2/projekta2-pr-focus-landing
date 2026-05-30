@@ -7,9 +7,11 @@
   <meta name="description" content="Stop drowning in pull requests. PR Focus uses AI to summarize PRs, detect risk, and draft reviews. Free tier available, PRO from $9 lifetime.">
   <meta property="og:title" content="PR Focus – AI GitHub PR Review Manager">
   <meta property="og:description" content="Prioritize, summarize, and review pull requests with AI. Works with GitHub, any AI provider.">
-  <meta property="og:image" content="https://projekta2.github.io/pr-focus-landing/og-image.png">
+  <meta property="og:image" content="https://projekta2.github.io/pr-focus-landing/pr-focus-banner.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="favicon.png">
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -32,31 +34,35 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 32px;
     }
 
-    /* Header & navigation */
+    /* Header */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 20px;
-      padding: 20px 0;
+      padding: 24px 0;
       border-bottom: 1px solid rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10,12,16,0.7);
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-size: 1.5rem;
       font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo i {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #f97316, #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .logo span {
@@ -68,7 +74,7 @@
 
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 28px;
       align-items: center;
       flex-wrap: wrap;
     }
@@ -88,7 +94,7 @@
       background: #1e293b;
       border: 1px solid #334155;
       border-radius: 30px;
-      padding: 6px 12px;
+      padding: 6px 14px;
       cursor: pointer;
       font-size: 0.8rem;
       font-weight: 500;
@@ -107,26 +113,26 @@
       color: white;
       border: none;
       border-radius: 40px;
-      padding: 12px 32px;
+      padding: 12px 28px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.2s;
       text-decoration: none;
       display: inline-block;
-      box-shadow: 0 4px 12px rgba(249,115,22,0.2);
+      box-shadow: 0 2px 8px rgba(249,115,22,0.2);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(249,115,22,0.3);
+      box-shadow: 0 6px 16px rgba(249,115,22,0.3);
     }
 
     .btn-outline {
       background: transparent;
       border: 1px solid #f97316;
       border-radius: 40px;
-      padding: 11px 30px;
+      padding: 11px 26px;
       font-weight: 500;
       color: #f97316;
       cursor: pointer;
@@ -140,37 +146,15 @@
       transform: translateY(-2px);
     }
 
-    /* Hero con banner de fondo */
+    /* Hero section – sin fondo de imagen problemático */
     .hero {
       text-align: center;
-      padding: 100px 0 80px;
+      padding: 80px 0 60px;
       position: relative;
-      background-image: url('banner gumroad pr focus ai pro.png');
-      background-size: cover;
-      background-position: center 30%;
-      background-repeat: no-repeat;
-      border-radius: 0 0 40px 40px;
-      margin-bottom: 20px;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(10,12,16,0.85), rgba(10,12,16,0.7));
-      border-radius: 0 0 40px 40px;
-    }
-
-    .hero > * {
-      position: relative;
-      z-index: 1;
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
       font-weight: 800;
       line-height: 1.2;
       margin-bottom: 20px;
@@ -185,7 +169,7 @@
 
     .hero p {
       font-size: 1.2rem;
-      color: #cbd5e1;
+      color: #9ca3af;
       max-width: 700px;
       margin: 0 auto 32px;
     }
@@ -197,18 +181,30 @@
       flex-wrap: wrap;
     }
 
-    /* Features grid */
+    /* Banner image as a separate section (optional) */
+    .banner-img {
+      max-width: 1000px;
+      margin: 20px auto 40px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.5);
+    }
+    .banner-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Section titles */
     .section-title {
       font-size: 2rem;
       font-weight: 700;
       text-align: center;
       margin-bottom: 48px;
-      background: linear-gradient(135deg, #ffffff, #9ca3af);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      letter-spacing: -0.02em;
     }
 
+    /* Features grid */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -217,49 +213,42 @@
     }
 
     .feature-card {
-      background: rgba(17,24,39,0.6);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(45,55,72,0.5);
+      background: #111827;
+      border: 1px solid #2d3748;
       border-radius: 24px;
       padding: 28px;
       transition: all 0.3s ease;
+      text-align: center;
     }
 
     .feature-card:hover {
-      transform: translateY(-6px);
+      transform: translateY(-5px);
       border-color: #f97316;
-      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.3);
     }
 
     .feature-icon {
-      font-size: 2rem;
-      margin-bottom: 16px;
+      font-size: 2.2rem;
+      color: #f97316;
+      margin-bottom: 20px;
     }
 
     .feature-card h3 {
       font-size: 1.3rem;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .feature-card p {
       color: #9ca3af;
     }
 
-    /* Pricing table */
+    /* Pricing */
     .pricing {
-      background: rgba(17,24,39,0.6);
-      backdrop-filter: blur(8px);
+      background: #111827;
       border-radius: 28px;
-      border: 1px solid rgba(45,55,72,0.5);
+      border: 1px solid #2d3748;
       max-width: 600px;
       margin: 60px auto;
       overflow: hidden;
-      transition: transform 0.2s;
-    }
-
-    .pricing:hover {
-      transform: scale(1.01);
-      border-color: #f97316;
     }
 
     .pricing-header {
@@ -281,7 +270,7 @@
     }
 
     .pricing-features {
-      padding: 24px 32px;
+      padding: 28px 32px;
     }
 
     .pricing-features ul {
@@ -298,6 +287,7 @@
     .check {
       color: #10b981;
       font-weight: bold;
+      font-size: 1.1rem;
     }
 
     .pricing-footer {
@@ -305,24 +295,24 @@
       padding: 24px 32px 32px;
     }
 
-    /* How it works */
+    /* How it works steps */
     .steps {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 24px;
+      justify-content: center;
+      gap: 32px;
       margin: 40px 0;
     }
 
     .step {
       flex: 1;
-      background: rgba(17,24,39,0.5);
-      backdrop-filter: blur(4px);
+      min-width: 200px;
+      background: #111827;
+      border: 1px solid #2d3748;
       border-radius: 24px;
-      padding: 28px 20px;
+      padding: 32px 20px;
       text-align: center;
       transition: all 0.2s;
-      border: 1px solid rgba(45,55,72,0.5);
     }
 
     .step:hover {
@@ -330,25 +320,24 @@
       border-color: #f97316;
     }
 
-    .step-num {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #f97316, #ea580c);
-      border-radius: 60px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(249,115,22,0.2);
+    .step-icon {
+      font-size: 2rem;
+      color: #f97316;
+      margin-bottom: 20px;
+    }
+
+    .step h3 {
+      margin-bottom: 12px;
+    }
+
+    .step p {
+      color: #9ca3af;
     }
 
     /* FAQ */
     .faq-item {
-      background: rgba(17,24,39,0.4);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(45,55,72,0.5);
+      background: #111827;
+      border: 1px solid #2d3748;
       border-radius: 20px;
       margin-bottom: 16px;
       padding: 20px 24px;
@@ -368,6 +357,11 @@
       align-items: center;
     }
 
+    .faq-question i {
+      color: #f97316;
+      transition: transform 0.2s;
+    }
+
     .faq-answer {
       margin-top: 12px;
       color: #9ca3af;
@@ -383,7 +377,7 @@
     .footer {
       margin-top: 80px;
       padding: 40px 0;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid #2d3748;
       text-align: center;
       color: #6b7280;
       font-size: 0.85rem;
@@ -398,13 +392,12 @@
       color: #f97316;
     }
 
-    /* Animations on scroll */
+    /* Fade animation */
     .fade-up {
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
@@ -412,16 +405,19 @@
 
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
-      .hero { padding: 60px 0 50px; }
+      .hero { padding: 50px 0; }
       .steps { flex-direction: column; }
-      .section-title { font-size: 1.8rem; }
+      .section-title { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo">📋 <span>PR Focus</span> <span style="font-size:0.8rem;">AI</span></div>
+      <div class="logo">
+        <i class="fas fa-code-branch"></i>
+        <span>PR Focus</span> <span style="font-size:0.8rem; margin-left: 4px;">AI</span>
+      </div>
       <div class="nav-links">
         <a href="#features" data-i18n="navFeatures">Features</a>
         <a href="#pricing" data-i18n="navPricing">Pricing</a>
@@ -439,36 +435,41 @@
       </div>
     </div>
 
+    <!-- Banner image (clean, not overlapping text) -->
+    <div class="banner-img fade-up">
+      <img src="pr-focus-banner.png" alt="PR Focus Pro interface preview">
+    </div>
+
     <div id="features" class="fade-up">
       <h2 class="section-title" data-i18n="featuresTitle">Everything you need to review code faster</h2>
       <div class="features">
         <div class="feature-card">
-          <div class="feature-icon">🤖</div>
+          <div class="feature-icon"><i class="fas fa-robot"></i></div>
           <h3 data-i18n="feat1Title">AI PR Summaries</h3>
           <p data-i18n="feat1Desc">2–3 sentence plain-English explanation of every PR, generated from the actual diff.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🔴</div>
+          <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
           <h3 data-i18n="feat2Title">Risk Scoring (0–100)</h3>
           <p data-i18n="feat2Desc">AI assesses CI status, age, and code scope (auth, DB, infra) to flag risky changes.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">✨</div>
+          <div class="feature-icon"><i class="fas fa-pen-fancy"></i></div>
           <h3 data-i18n="feat3Title">One‑click Draft Reviews</h3>
           <p data-i18n="feat3Desc">Generate approve or request‑changes drafts from the diff. Edit and send without leaving the extension.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">⚡</div>
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
           <h3 data-i18n="feat4Title">Hybrid Priority Queue</h3>
           <p data-i18n="feat4Desc">Combines CI failures, PR age, and AI risk score into a single priority sort.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🏢</div>
+          <div class="feature-icon"><i class="fas fa-users"></i></div>
           <h3 data-i18n="feat5Title">Multi‑account GitHub</h3>
           <p data-i18n="feat5Desc">Switch between personal and work accounts in one click.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🔒</div>
+          <div class="feature-icon"><i class="fas fa-lock"></i></div>
           <h3 data-i18n="feat6Title">100% Local – BYOK</h3>
           <p data-i18n="feat6Desc">Your keys never leave your browser. Works with OpenAI, Groq, Mistral, or local Ollama.</p>
         </div>
@@ -478,9 +479,21 @@
     <div id="how-it-works" class="fade-up">
       <h2 class="section-title" data-i18n="howTitle">How it works</h2>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><h3 data-i18n="step1Title">Install & connect</h3><p data-i18n="step1Desc">Add the extension, paste your GitHub token (classic, with `repo` scope).</p></div>
-        <div class="step"><div class="step-num">2</div><h3 data-i18n="step2Title">(Optional) Add AI key</h3><p data-i18n="step2Desc">Bring your own OpenAI, Groq, or other key to unlock AI features.</p></div>
-        <div class="step"><div class="step-num">3</div><h3 data-i18n="step3Title">Review smarter</h3><p data-i18n="step3Desc">Open the popup – PRs are automatically summarized, prioritized, and ready for draft reviews.</p></div>
+        <div class="step">
+          <div class="step-icon"><i class="fas fa-download"></i></div>
+          <h3 data-i18n="step1Title">Install & connect</h3>
+          <p data-i18n="step1Desc">Add the extension, paste your GitHub token (classic, with `repo` scope).</p>
+        </div>
+        <div class="step">
+          <div class="step-icon"><i class="fas fa-key"></i></div>
+          <h3 data-i18n="step2Title">(Optional) Add AI key</h3>
+          <p data-i18n="step2Desc">Bring your own OpenAI, Groq, or other key to unlock AI features.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon"><i class="fas fa-check-double"></i></div>
+          <h3 data-i18n="step3Title">Review smarter</h3>
+          <p data-i18n="step3Desc">Open the popup – PRs are automatically summarized, prioritized, and ready for draft reviews.</p>
+        </div>
       </div>
     </div>
 
@@ -511,19 +524,19 @@
     <div id="faq" class="fade-up">
       <h2 class="section-title" data-i18n="faqTitle">Frequently asked questions</h2>
       <div class="faq-item">
-        <div class="faq-question">💡 <span data-i18n="faq1q">Do I need an AI API key?</span> <span>+</span></div>
+        <div class="faq-question"><span data-i18n="faq1q">Do I need an AI API key?</span> <i class="fas fa-chevron-down"></i></div>
         <div class="faq-answer" data-i18n="faq1a">Only for AI features (summaries, risk, drafts). You can use Groq's free tier or any OpenAI‑compatible provider.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">🔑 <span data-i18n="faq2q">Is my data safe?</span> <span>+</span></div>
+        <div class="faq-question"><span data-i18n="faq2q">Is my data safe?</span> <i class="fas fa-chevron-down"></i></div>
         <div class="faq-answer" data-i18n="faq2a">Yes – everything stays in your browser. No servers, no tracking. Your GitHub and AI keys are stored locally.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">🔄 <span data-i18n="faq3q">Can I use the same license on multiple devices?</span> <span>+</span></div>
+        <div class="faq-question"><span data-i18n="faq3q">Can I use the same license on multiple devices?</span> <i class="fas fa-chevron-down"></i></div>
         <div class="faq-answer" data-i18n="faq3a">Yes – one license per OS user profile. You can deactivate and reactivate up to 3 times per year.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">💰 <span data-i18n="faq4q">What's the refund policy?</span> <span>+</span></div>
+        <div class="faq-question"><span data-i18n="faq4q">What's the refund policy?</span> <i class="fas fa-chevron-down"></i></div>
         <div class="faq-answer" data-i18n="faq4a">30‑day full refund, no questions asked. If it doesn't save you time, we'll return your money.</div>
       </div>
     </div>
@@ -663,13 +676,15 @@
       setLanguage(newLang);
     });
 
-    // FAQ toggle
+    // FAQ toggle chevron rotation
     document.querySelectorAll('.faq-question').forEach(q => {
       q.addEventListener('click', () => {
         const answer = q.parentElement.querySelector('.faq-answer');
         answer.classList.toggle('show');
-        const span = q.querySelector('span:last-child');
-        if (span) span.textContent = answer.classList.contains('show') ? '−' : '+';
+        const icon = q.querySelector('i');
+        if (icon) {
+          icon.style.transform = answer.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0)';
+        }
       });
     });
 
@@ -685,7 +700,7 @@
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // Set default language based on browser
+    // Default language based on browser
     const browserLang = navigator.language.slice(0, 2);
     if (browserLang === 'es') setLanguage('es');
     else setLanguage('en');
