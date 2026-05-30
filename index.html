@@ -9,6 +9,7 @@
   <meta property="og:description" content="Prioritize, summarize, and review pull requests with AI. Works with GitHub, any AI provider.">
   <meta property="og:image" content="https://projekta2.github.io/pr-focus-landing/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="favicon.png">
   <style>
     * {
       margin: 0;
@@ -16,11 +17,16 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
       background: #0a0c10;
       color: #eef2ff;
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
     .container {
@@ -37,7 +43,12 @@
       flex-wrap: wrap;
       gap: 20px;
       padding: 20px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,12,16,0.7);
     }
 
     .logo {
@@ -49,7 +60,7 @@
     }
 
     .logo span {
-      background: linear-gradient(135deg, #f97316, #ea580c);
+      background: linear-gradient(135deg, #f97316, #fbbf24);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -63,9 +74,10 @@
     }
 
     .nav-links a {
-      color: #9ca3af;
+      color: #cbd5e1;
       text-decoration: none;
       transition: color 0.2s;
+      font-weight: 500;
     }
 
     .nav-links a:hover {
@@ -81,33 +93,40 @@
       font-size: 0.8rem;
       font-weight: 500;
       color: #eef2ff;
+      transition: all 0.2s;
+    }
+
+    .lang-switch:hover {
+      background: #2d3a4f;
+      border-color: #f97316;
     }
 
     /* Buttons */
     .btn-primary {
-      background: #f97316;
+      background: linear-gradient(135deg, #f97316, #ea580c);
       color: white;
       border: none;
       border-radius: 40px;
-      padding: 12px 28px;
+      padding: 12px 32px;
       font-weight: 600;
       font-size: 1rem;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
       display: inline-block;
+      box-shadow: 0 4px 12px rgba(249,115,22,0.2);
     }
 
     .btn-primary:hover {
-      background: #ea580c;
       transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(249,115,22,0.3);
     }
 
     .btn-outline {
       background: transparent;
       border: 1px solid #f97316;
       border-radius: 40px;
-      padding: 11px 26px;
+      padding: 11px 30px;
       font-weight: 500;
       color: #f97316;
       cursor: pointer;
@@ -121,14 +140,37 @@
       transform: translateY(-2px);
     }
 
-    /* Hero */
+    /* Hero con banner de fondo */
     .hero {
       text-align: center;
-      padding: 80px 0 60px;
+      padding: 100px 0 80px;
+      position: relative;
+      background-image: url('banner gumroad pr focus ai pro.png');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      border-radius: 0 0 40px 40px;
+      margin-bottom: 20px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(10,12,16,0.85), rgba(10,12,16,0.7));
+      border-radius: 0 0 40px 40px;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-size: clamp(2.2rem, 6vw, 4rem);
       font-weight: 800;
       line-height: 1.2;
       margin-bottom: 20px;
@@ -143,7 +185,7 @@
 
     .hero p {
       font-size: 1.2rem;
-      color: #9ca3af;
+      color: #cbd5e1;
       max-width: 700px;
       margin: 0 auto 32px;
     }
@@ -161,6 +203,10 @@
       font-weight: 700;
       text-align: center;
       margin-bottom: 48px;
+      background: linear-gradient(135deg, #ffffff, #9ca3af);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .features {
@@ -171,16 +217,18 @@
     }
 
     .feature-card {
-      background: #111827;
-      border: 1px solid #2d3748;
-      border-radius: 20px;
-      padding: 24px;
-      transition: transform 0.2s, border-color 0.2s;
+      background: rgba(17,24,39,0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(45,55,72,0.5);
+      border-radius: 24px;
+      padding: 28px;
+      transition: all 0.3s ease;
     }
 
     .feature-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       border-color: #f97316;
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.3);
     }
 
     .feature-icon {
@@ -199,12 +247,19 @@
 
     /* Pricing table */
     .pricing {
-      background: #111827;
-      border-radius: 24px;
-      border: 1px solid #2d3748;
+      background: rgba(17,24,39,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      border: 1px solid rgba(45,55,72,0.5);
       max-width: 600px;
       margin: 60px auto;
       overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .pricing:hover {
+      transform: scale(1.01);
+      border-color: #f97316;
     }
 
     .pricing-header {
@@ -255,37 +310,53 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 20px;
+      gap: 24px;
       margin: 40px 0;
     }
 
     .step {
       flex: 1;
-      background: #111827;
-      border-radius: 20px;
-      padding: 24px;
+      background: rgba(17,24,39,0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 24px;
+      padding: 28px 20px;
       text-align: center;
+      transition: all 0.2s;
+      border: 1px solid rgba(45,55,72,0.5);
+    }
+
+    .step:hover {
+      transform: translateY(-4px);
+      border-color: #f97316;
     }
 
     .step-num {
-      width: 40px;
-      height: 40px;
-      background: #f97316;
-      border-radius: 40px;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      border-radius: 60px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      font-size: 1.2rem;
       margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(249,115,22,0.2);
     }
 
     /* FAQ */
     .faq-item {
-      background: #111827;
-      border: 1px solid #2d3748;
-      border-radius: 16px;
+      background: rgba(17,24,39,0.4);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(45,55,72,0.5);
+      border-radius: 20px;
       margin-bottom: 16px;
-      padding: 16px 20px;
+      padding: 20px 24px;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover {
+      border-color: #f97316;
     }
 
     .faq-question {
@@ -301,6 +372,7 @@
       margin-top: 12px;
       color: #9ca3af;
       display: none;
+      line-height: 1.6;
     }
 
     .faq-answer.show {
@@ -311,7 +383,7 @@
     .footer {
       margin-top: 80px;
       padding: 40px 0;
-      border-top: 1px solid #2d3748;
+      border-top: 1px solid rgba(255,255,255,0.05);
       text-align: center;
       color: #6b7280;
       font-size: 0.85rem;
@@ -326,10 +398,23 @@
       color: #f97316;
     }
 
+    /* Animations on scroll */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
-      .hero { padding: 40px 0; }
+      .hero { padding: 60px 0 50px; }
       .steps { flex-direction: column; }
+      .section-title { font-size: 1.8rem; }
     }
   </style>
 </head>
@@ -349,12 +434,12 @@
       <h1 data-i18n="heroTitle">Your GitHub PR inbox,<br><span class="highlight">supercharged by AI</span></h1>
       <p data-i18n="heroDesc">Stop drowning in pull requests. PR Focus prioritizes what needs your attention, summarizes every change, and drafts your review in one click — so you ship faster.</p>
       <div class="hero-buttons">
-        <a href="https://chrome.google.com/webstore/detail/pr-focus-inbox" class="btn-primary" target="_blank" data-i18n="installChrome">Add to Chrome – Free</a>
-        <a href="#pricing" class="btn-outline" data-i18n="learnMore">Learn more ↓</a>
+        <a href="https://projekta2.gumroad.com/l/PRFocusAIPro" class="btn-primary" target="_blank" data-i18n="buyNow">Get PRO – $9</a>
+        <a href="#features" class="btn-outline" data-i18n="learnMore">Learn more ↓</a>
       </div>
     </div>
 
-    <div id="features">
+    <div id="features" class="fade-up">
       <h2 class="section-title" data-i18n="featuresTitle">Everything you need to review code faster</h2>
       <div class="features">
         <div class="feature-card">
@@ -390,7 +475,7 @@
       </div>
     </div>
 
-    <div id="how-it-works">
+    <div id="how-it-works" class="fade-up">
       <h2 class="section-title" data-i18n="howTitle">How it works</h2>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><h3 data-i18n="step1Title">Install & connect</h3><p data-i18n="step1Desc">Add the extension, paste your GitHub token (classic, with `repo` scope).</p></div>
@@ -399,7 +484,7 @@
       </div>
     </div>
 
-    <div id="pricing">
+    <div id="pricing" class="fade-up">
       <h2 class="section-title" data-i18n="pricingTitle">Simple, lifetime pricing</h2>
       <div class="pricing">
         <div class="pricing-header">
@@ -416,14 +501,14 @@
           </ul>
         </div>
         <div class="pricing-footer">
-          <a href="https://projekta2.gumroad.com/l/PRFocusAIPro" class="btn-primary" target="_blank" data-i18n="buyNow">Buy PRO – $9</a>
+          <a href="https://projekta2.gumroad.com/l/PRFocusAIPro" class="btn-primary" target="_blank" data-i18n="buyNow">Get PRO – $9</a>
           <p style="margin-top: 12px; font-size: 0.8rem;" data-i18n="refundNote">30‑day money‑back guarantee</p>
         </div>
       </div>
       <p style="text-align:center; margin-top: -20px;" data-i18n="freeTierNote">The free tier includes multi‑account, sorting, export, and stale notifications.</p>
     </div>
 
-    <div id="faq">
+    <div id="faq" class="fade-up">
       <h2 class="section-title" data-i18n="faqTitle">Frequently asked questions</h2>
       <div class="faq-item">
         <div class="faq-question">💡 <span data-i18n="faq1q">Do I need an AI API key?</span> <span>+</span></div>
@@ -453,7 +538,7 @@
   </div>
 
   <script>
-    // Simple i18n dictionary (EN/ES)
+    // Translations (EN/ES)
     const translations = {
       en: {
         navFeatures: "Features",
@@ -461,7 +546,6 @@
         navFaq: "FAQ",
         heroTitle: "Your GitHub PR inbox,<br><span class=\"highlight\">supercharged by AI</span>",
         heroDesc: "Stop drowning in pull requests. PR Focus prioritizes what needs your attention, summarizes every change, and drafts your review in one click — so you ship faster.",
-        installChrome: "Add to Chrome – Free",
         learnMore: "Learn more ↓",
         featuresTitle: "Everything you need to review code faster",
         feat1Title: "AI PR Summaries",
@@ -490,7 +574,7 @@
         pro3: "One‑click draft reviews (approve/request changes)",
         pro4: "Full stats history & AI priority sorting",
         pro5: "All future updates",
-        buyNow: "Buy PRO – $9",
+        buyNow: "Get PRO – $9",
         refundNote: "30‑day money‑back guarantee",
         freeTierNote: "The free tier includes multi‑account, sorting, export, and stale notifications.",
         faqTitle: "Frequently asked questions",
@@ -511,7 +595,6 @@
         navFaq: "FAQ",
         heroTitle: "Tu bandeja de PR de GitHub,<br><span class=\"highlight\">potenciada por IA</span>",
         heroDesc: "Deja de ahogarte en pull requests. PR Focus prioriza lo que necesita tu atención, resume cada cambio y redacta tu revisión con un clic.",
-        installChrome: "Añadir a Chrome – Gratis",
         learnMore: "Más info ↓",
         featuresTitle: "Todo lo que necesitas para revisar código más rápido",
         feat1Title: "Resúmenes IA",
@@ -540,7 +623,7 @@
         pro3: "Borradores con un clic (aprobar/solicitar cambios)",
         pro4: "Historial completo de estadísticas y orden prioritario IA",
         pro5: "Todas las actualizaciones futuras",
-        buyNow: "Comprar PRO – $9",
+        buyNow: "Obtener PRO – $9",
         refundNote: "Garantía de devolución de 30 días",
         freeTierNote: "El nivel gratuito incluye multi‑cuenta, ordenación, exportación y notificaciones.",
         faqTitle: "Preguntas frecuentes",
@@ -565,13 +648,8 @@
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (texts[key]) {
-          if (el.innerHTML.includes('<span')) {
-            // preserve inner HTML for hero title (has span)
-            if (key === 'heroTitle') {
-              el.innerHTML = texts[key];
-            } else {
-              el.innerHTML = texts[key];
-            }
+          if (key === 'heroTitle') {
+            el.innerHTML = texts[key];
           } else {
             el.textContent = texts[key];
           }
@@ -585,15 +663,29 @@
       setLanguage(newLang);
     });
 
-    // Faq toggle
+    // FAQ toggle
     document.querySelectorAll('.faq-question').forEach(q => {
       q.addEventListener('click', () => {
         const answer = q.parentElement.querySelector('.faq-answer');
         answer.classList.toggle('show');
+        const span = q.querySelector('span:last-child');
+        if (span) span.textContent = answer.classList.contains('show') ? '−' : '+';
       });
     });
 
-    // Set default language (browser language or english)
+    // Scroll animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Set default language based on browser
     const browserLang = navigator.language.slice(0, 2);
     if (browserLang === 'es') setLanguage('es');
     else setLanguage('en');
