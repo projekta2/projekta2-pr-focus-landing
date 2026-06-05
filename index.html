@@ -1005,104 +1005,19 @@ body::after {
     </div>
   </div>
 
-   <!-- ── EMAIL CAPTURE SECTION (Gumroad) ── -->
+  <!-- ── EMAIL CAPTURE SECTION (Gumroad) ── -->
   <div class="capture-section fade-up" style="background: linear-gradient(135deg, var(--surface2), var(--bg2)); border-radius: 28px; padding: 48px 32px; margin: 60px 0; border: 1px solid var(--border); text-align: center;">
-    <div class="section-eyebrow" style="justify-content: center;" data-i18n-capture="eyebrow">EARLY ACCESS</div>
-    <h2 style="font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 16px;" data-i18n-capture="title">Be the first to know when PR Focus Pro launches</h2>
-    <p style="color: var(--muted); max-width: 520px; margin: 0 auto 32px;" data-i18n-capture="desc">We're finalizing the extension. Leave your email and we'll notify you the moment it's live — plus a special thank‑you discount for early subscribers.</p>
+    <div class="section-eyebrow" style="justify-content: center;">EARLY ACCESS</div>
+    <h2 style="font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 16px;">Be the first to know when PR Focus Pro launches</h2>
+    <p style="color: var(--muted); max-width: 520px; margin: 0 auto 32px;">We're finalizing the extension. Join the waitlist and we'll notify you the moment it's live — plus a special thank‑you discount for early subscribers.</p>
 
-    <form id="emailCaptureForm" action="https://projekta2.gumroad.com/subscribe" method="GET" target="_blank" style="max-width: 420px; margin: 0 auto;">
-      <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
-        <input type="email" name="email" placeholder="you@example.com" required style="flex: 2; min-width: 200px; background: var(--bg); border: 1px solid var(--border2); border-radius: 12px; padding: 14px 20px; font-family: var(--font-mono); font-size: 0.9rem; color: var(--text); outline: none; transition: all 0.2s;">
-        <button type="submit" class="btn-primary" style="padding: 14px 28px; font-size: 0.9rem;">
-          <span data-i18n-capture="btn">Notify me →</span>
-        </button>
-      </div>
-      <p class="capture-message" style="display: none; margin-top: 20px; color: var(--green);"></p>
-      <p style="font-size: 0.7rem; color: var(--dim); margin-top: 20px;" data-i18n-capture="privacy">No spam. Unsubscribe anytime. Your email is only used for launch notification.</p>
-    </form>
+    <div style="max-width: 260px; margin: 0 auto;">
+      <a href="https://projekta2.gumroad.com/subscribe" target="_blank" class="btn-primary" style="display: block; padding: 14px 28px; font-size: 0.9rem; text-align: center; text-decoration: none;">
+        Join the waitlist →
+      </a>
+    </div>
+    <p style="font-size: 0.7rem; color: var(--dim); margin-top: 24px;">No spam. Unsubscribe anytime. Your email is only used for launch notification.</p>
   </div>
-
-  <style>
-    #emailCaptureForm input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(249,115,22,0.2);
-    }
-    #emailCaptureForm button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-  </style>
-
-  <script>
-    (function() {
-      const captureTranslations = {
-        en: {
-          eyebrow: "EARLY ACCESS",
-          title: "Be the first to know when PR Focus Pro launches",
-          desc: "We're finalizing the extension. Leave your email and we'll notify you the moment it's live — plus a special thank‑you discount for early subscribers.",
-          btn: "Notify me →",
-          privacy: "No spam. Unsubscribe anytime. Your email is only used for launch notification.",
-          message: "Thanks! You'll be redirected to Gumroad to complete your subscription."
-        },
-        es: {
-          eyebrow: "ACCESO ANTICIPADO",
-          title: "Sé el primero en saber cuando PR Focus Pro esté disponible",
-          desc: "Estamos ultimando la extensión. Deja tu email y te avisaremos en cuanto esté lista — además de un descuento especial de agradecimiento para los primeros suscriptores.",
-          btn: "Notificarme →",
-          privacy: "Sin spam. Puedes darte de baja en cualquier momento. Tu email solo se usa para la notificación de lanzamiento.",
-          message: "¡Gracias! Serás redirigido a Gumroad para completar tu suscripción."
-        }
-      };
-
-      function updateCaptureLanguage(lang) {
-        const t = captureTranslations[lang] || captureTranslations.en;
-        document.querySelectorAll('[data-i18n-capture]').forEach(el => {
-          const key = el.getAttribute('data-i18n-capture');
-          if (t[key]) el.innerText = t[key];
-        });
-      }
-
-      const originalSetLanguage = window.setLanguage;
-      if (originalSetLanguage) {
-        window.setLanguage = function(lang) {
-          originalSetLanguage(lang);
-          updateCaptureLanguage(lang);
-        };
-        updateCaptureLanguage(window.currentLang || 'en');
-      } else {
-        const browserLang = navigator.language.slice(0,2);
-        updateCaptureLanguage(browserLang === 'es' ? 'es' : 'en');
-      }
-
-      const form = document.getElementById('emailCaptureForm');
-      if (form) {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const submitBtn = form.querySelector('button[type="submit"]');
-          const messageEl = form.querySelector('.capture-message');
-          const originalBtnText = submitBtn.innerHTML;
-          const currentLang = window.currentLang || (navigator.language.slice(0,2) === 'es' ? 'es' : 'en');
-          const t = captureTranslations[currentLang];
-
-          messageEl.textContent = t.message;
-          messageEl.style.display = 'block';
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '✓ Subscribed';
-
-          setTimeout(() => {
-            let gumroadUrl = form.action;
-            const emailInput = form.querySelector('input[name="email"]');
-            if (emailInput && emailInput.value) {
-              gumroadUrl += '?email=' + encodeURIComponent(emailInput.value);
-            }
-            window.open(gumroadUrl, '_blank');
-          }, 1000);
-        });
-      }
-    })();
-  </script>
-
 
   <!-- ── FEATURES ── -->
   <div id="features" class="fade-up">
