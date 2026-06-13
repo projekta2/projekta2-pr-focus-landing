@@ -19,7 +19,7 @@
     <img src="https://img.shields.io/badge/🔥_Get_PRO_–_$9.50_Launch_Special-f97316?style=for-the-badge&labelColor=0c0f1a&color=f97316" alt="Buy PRO" />
   </a>
   &nbsp;
-  <a href="https://projekta2.github.io/pr-focus-demo.html">
+  <a href="https://rawcdn.githack.com/projekta2/pr-focus-landing/5fcc90333bd68151b15833d29a1d9a65c17fd964/pr-focus-demo.html">
     <img src="https://img.shields.io/badge/▶_Live_Demo-ff69b4?style=for-the-badge&labelColor=0c0f1a" alt="Live Demo" />
   </a>
   &nbsp;
