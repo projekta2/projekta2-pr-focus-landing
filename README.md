@@ -152,6 +152,44 @@
 
 <br />
 
+<br />
+
+## 📸 Screenshots
+
+Here’s what PR Focus Pro looks like in action. All screenshots are from the live extension running in Chrome.
+
+<div align="center">
+
+| AI summaries & risk scoring | One‑click draft review |
+|:---:|:---:|
+| ![AI summaries](assets/screenshot-inbox-ai-summaries.jpeg) | ![Draft review](assets/screenshot-ai-draft-review.jpeg) |
+
+| Priority inbox | My pull requests |
+|:---:|:---:|
+| ![Priority inbox](assets/screenshot-inbox-priority.jpg) | ![My PRs](assets/screenshot-my-prs.jpg) |
+
+| AI risk summary | Draft review editor |
+|:---:|:---:|
+| ![Risk summary](assets/screenshot-ai-risk-summary.jpg) | ![Draft review](assets/screenshot-draft-review.jpg) |
+
+| Pro settings & AI config | Stats dashboard (Pro) |
+|:---:|:---:|
+| ![Settings](assets/screenshot-settings-pro-ai.jpeg) | ![Stats dashboard](assets/screenshot-stats-dashboard.jpeg) |
+
+| Upgrade to Pro | Banner examples |
+|:---:|:---:|
+| ![Upgrade](assets/screenshot-upgrade-pro.jpg) | ![Banner large](assets/banner-large.jpg) |
+
+</div>
+
+> 💡 You can also try the **[▶ interactive live demo](https://projekta2.github.io/projekta2-pr-focus-landing/pr-focus-demo.html)** – a fully interactive simulation with a guided tour. No installation required.
+
+<br />
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:f97316,100:ea580c&height=2" width="100%" />
+</p>
+
 ## 🚀 How It Works
 
 <br />
