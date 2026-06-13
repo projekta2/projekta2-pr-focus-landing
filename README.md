@@ -23,7 +23,7 @@
     <img src="https://img.shields.io/badge/▶_Live_Demo-ff69b4?style=for-the-badge&labelColor=0c0f1a" alt="Live Demo" />
   </a>
   &nbsp;
-  <a href="https://projekta2.github.io/projekta2-pr-focus-landing/">
+  <a href="https://projekta2.github.io/pr-focus-landing/">
     <img src="https://img.shields.io/badge/🌐_Landing_Page-3b82f6?style=for-the-badge&labelColor=0c0f1a" alt="Landing Page" />
   </a>
 </p>
